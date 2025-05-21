@@ -4,6 +4,7 @@
  */
 package br.com.penariol.airports.controller;
 
+import br.com.penariol.airports.DTO.AirportMinDTO;
 import br.com.penariol.airports.entities.Airport;
 import br.com.penariol.airports.service.AirportService;
 import java.util.List;
@@ -40,4 +41,20 @@ public class AirportController {
         } 
         
     }
+    
+    @GetMapping("/country/{countryName}")
+    public ResponseEntity<List<AirportMinDTO>> findByCountryIgnoreCase(@PathVariable String countryName){
+        
+        List<AirportMinDTO> result = airportService.findByCountry(countryName);
+        if (result.isEmpty()){
+            return ResponseEntity.notFound().build();
+        }
+        else{
+            return ResponseEntity.ok(result);
+        } 
+        
+    }     
+    
+
 }
+
